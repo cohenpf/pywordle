@@ -40,13 +40,14 @@ def print_test(guess, test_res):
     
 def ask_exit():
     while(True):
-        question = input("\nPlay another game of Wordle? (Y/N)\n").upper()
-        if question == 'Y':
+        print("\nPlay another game of Wordle? (\x1b[6;30;42m[Y]\x1b[0mes/\x1b[0;30;47m[N]\x1b[0mo)")
+        question = input().upper()
+        if question == 'Y' or question == 'YES':
             return False
-        elif question == 'N':
+        elif question == 'N' or question == 'NO':
             return True
         else:
-            print("Type 'Y' or 'N'.\n")
+            print("Type [Y] or [N].\n")
             
 def mod_alpha_stat(alpha_stat, guess, test_res):
     for iid in range(len(guess)):
@@ -86,7 +87,7 @@ words.extend(answers)
 print("\x1b[0;30;43mWelcome\x1b[0m \x1b[0;30;47mto\x1b[0m \x1b[6;30;42mWordle\x1b[0m!")
 print("Find a 5-length English words in 6 trials!")
 print("Type 'Give up' to give up current game.")
-input("\n\nPress Enter key to start. \n")
+input("\nPress Enter key to start. \n")
 
 while(True):
     answer = rand.choice(answers)
