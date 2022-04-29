@@ -21,12 +21,27 @@ def take_input(words):
     
 def test_word(guess, sep_ans):
     sepa_guess = [alpha for alpha in guess]
+    ans_alp_stat = dict([[alpha, 0] for alpha in 'abcdefghijklmnopqrstuvwxyz'.upper()])
+    for alpha in sep_ans:
+        ans_alp_stat[alpha] += 1
     
-    result = []
+    result = [0 for _ in sep_ans]
+            
     for iid in range(len(guess)):
-        if sepa_guess[iid] == sep_ans[iid]: result.append(2)
-        elif sepa_guess[iid] in sep_ans: result.append(1)
-        else: result.append(0)
+        alpha = sepa_guess[iid]
+        if alpha == sep_ans[iid]: 
+            result[iid] = 2
+            ans_alp_stat[alpha] -= 1
+            
+    for iid in range(len(guess)):
+        alpha = sepa_guess[iid]
+        if alpha == sep_ans[iid]: 
+            pass
+        elif alpha in sep_ans:
+            if ans_alp_stat[alpha] >= 1: 
+                result[iid] = 1
+                ans_alp_stat[alpha] -= 1
+        else: pass
     
     return result
 
@@ -85,7 +100,7 @@ words = [word.strip().upper() for word in words]
 words.extend(answers)
 
 print("\x1b[0;30;43mWelcome\x1b[0m \x1b[0;30;47mto\x1b[0m \x1b[6;30;42mWordle\x1b[0m!")
-print("Find a 5-length English words in 6 trials!")
+print("Find a 5-length English word in 6 trials!")
 print("Type 'Give up' to give up current game.")
 input("\nPress Enter key to start. \n")
 
